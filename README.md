@@ -1,2 +1,2 @@
 # JavaScript-Projects
-My projects for Java Script course
+This repository contains my JavaScript coding projects and assignment.
