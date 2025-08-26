@@ -1,5 +1,3 @@
-// Project 3 - Math Operators Assignment
-
 // Addition Function
 function Add_Numbers() {
   var number1 = 10;
