@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project 10 – Loops & Arrays</title>
+  <!-- Defer = wait to run JS until HTML is parsed, so our elements exist -->
+  <script src="JS/main.js" defer></script>
+  <style>
+    /* purely for neatness in the browser preview; not graded */
+    body { font-family: Arial, sans-serif; line-height: 1.5; margin: 24px; }
+    h2 { margin-top: 2rem; }
+    button { margin-top: .5rem; }
+    .box { padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; margin: 12px 0; background:#fafafa; }
+    .out { min-height: 24px; padding: 8px; background:#fff; border:1px solid #eee; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <h1>Project 10 – Loops, Arrays, const & let, Objects</h1>
+
+  <!-- 1) While loop -->
+  <h2>While Loop</h2>
+  <div class="box">
+    <p class="out" id="loop"></p>
+    <button onclick="Call_Loop()">Run while loop (1–10)</button>
+  </div>
+
+  <!-- 2) For loop using an array -->
+  <h2>For Loop (Array of Instruments)</h2>
+  <div class="box">
+    <p class="out" id="List_of_Instruments"></p>
+    <button onclick="for_Loop()">List instruments</button>
+  </div>
+
+  <!-- 3) Array + innerHTML (rotating) -->
+  <h2>Array Function (Rotate through values)</h2>
+  <div class="box">
+    <p class="out" id="Array"></p>
+    <button onclick="array_Function()">Next dessert 🍰</button>
+  </div>
+
+  <!-- 4) const object + modify/add props -->
+  <h2>const Object (Modify & Add Properties)</h2>
+  <div class="box">
+    <p class="out" id="Constant"></p>
+    <button onclick="constant_function()">Show hero (const)</button>
+  </div>
+
+  <!-- 5) let keyword -->
+  <h2>let Keyword</h2>
+  <div class="box">
+    <p class="out" id="LetOutput"></p>
+    <button onclick="let_Function()">Show let greeting</button>
+  </div>
+
+  <!-- 6) let object with method -->
+  <h2>Object using let + Method</h2>
+  <div class="box">
+    <p class="out" id="ObjectOutput"></p>
+    <button onclick="object_Function()">Describe hero (method)</button>
+  </div>
+</body>
+</html>
