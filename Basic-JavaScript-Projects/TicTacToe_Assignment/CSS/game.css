@@ -1,0 +1,28 @@
+h1 {
+  text-align: center; /* Centers the title */
+}
+
+.center-container {
+  width: 608px;
+  margin: 50px auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-style: hidden;
+}
+
+td {
+  cursor: pointer;
+  border: 4px solid teal; /* Example: changed grid line color */
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  filter: contrast(3);
+}
+
+canvas {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}

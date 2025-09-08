@@ -1,0 +1,45 @@
+/* Basic layout */
+body {
+  font-family: system-ui, Arial, sans-serif;
+  margin: 24px;
+}
+
+/* Form container */
+form {
+  max-width: 520px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #aaa;           /* visible border */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Checkbox line */
+label.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  padding: 10px 14px;
+  border: 1px solid #222;
+  background: #f2f2f2;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Simple error block */
+#formErrors {
+  color: #b00020;                    /* red for errors */
+  font-size: 0.95rem;
+}
