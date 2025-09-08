@@ -1,85 +1,58 @@
-// This variable keeps track of whose turn it is.
+// Track whose turn it is
 let activePlayer = 'X';
-// This array stores an array of moves. We use this to determine win conditions.
+
+// Store moves like "0X", "4O", etc.
 let selectedSquares = [];
 
-// This function is for placing an x or o in a square.
+// Reference to <body id="body"> for disableClick()
+const body = document.getElementById('body');
+
+// Store the pending computer-move timeout so we can cancel it on win/tie
+let computerTimeoutId = null;
+
+// Place X or O in a square by id ("0".."8")
 function placeXOrO(squareNumber) {
-  // This condition ensures a square hasn't been selected already.
-  if (!selectedSquares.some(element => element.includes(squareNumber))) {
-    // This variable retrieves the HTML element id that was clicked.
+  // Do nothing if this square was already chosen
+  if (!selectedSquares.some(el => el.includes(squareNumber))) {
+    // Cell element
     let select = document.getElementById(squareNumber);
-    // This condition checks who's turn it is.
+
+    // Put the image based on whose turn it is
     if (activePlayer === 'X') {
-      // If activePlayer is equal to 'X', the x.png is placed in HTML
       select.style.backgroundImage = 'url("Images/x.png")';
     } else {
-      // If activePlayer is equal to 'O', the o.png is placed in HTML
       select.style.backgroundImage = 'url("Images/o.png")';
     }
-    // squareNumber and activePlayer are concatenated together and added to array.
+
+    // Record the move
     selectedSquares.push(squareNumber + activePlayer);
-    // This calls a function to check for any win conditions.
+
+    // Check win/tie
     checkWinConditions();
-    // This condition is for changing the active player.
-    if (activePlayer === 'X') {
-      // If active player is 'X' change it to 'O'
-      activePlayer = 'O';
-    } else {
-      // Change the activePlayer to 'X'
-      activePlayer = 'X';
-    }
-    // This function plays placement sound.
+
+    // Toggle player
+    activePlayer = (activePlayer === 'X') ? 'O' : 'X';
+
+    // Place sound
     audio('Media/place.mp3');
-    // This condition checks to see if it is the computers turn.
+
+    // Computer turn after short delay
     if (activePlayer === 'O') {
-      disableClick(); // Disables clicking for computers turn.
-      // This function waits 1 second before the computer places an image and enables click.
-      setTimeout(function () { computersTurn(); }, 1000);
+      disableClick();
+      // Store timeout id so we can clear it if the round ends meanwhile
+      computerTimeoutId = setTimeout(function () { computersTurn(); }, 1000);
     }
-    // Returning true is needed for our computersTurn() function to work.
+    // Needed by computersTurn()
     return true;
   }
+  return false;
 }
 
-// This function parses the selectedSquares array to search for win conditions.
-// drawLine() function is called to draw a line on the screen if the condition is met.
-function checkWinConditions() {
-  if (arrayIncludes('0X', '1X', '2X')) { drawLine(50, 100, 558, 100); }
-  else if (arrayIncludes('3X', '4X', '5X')) { drawLine(50, 304, 558, 304); }
-  else if (arrayIncludes('6X', '7X', '8X')) { drawLine(50, 508, 558, 508); }
-  else if (arrayIncludes('0X', '3X', '6X')) { drawLine(100, 50, 100, 558); }
-  else if (arrayIncludes('1X', '4X', '7X')) { drawLine(304, 50, 304, 558); }
-  else if (arrayIncludes('2X', '5X', '8X')) { drawLine(508, 50, 508, 558); }
-  else if (arrayIncludes('0X', '4X', '8X')) { drawLine(100, 100, 520, 520); }
-  else if (arrayIncludes('2X', '4X', '6X')) { drawLine(100, 520, 520, 100); }
-  else if (arrayIncludes('0O', '1O', '2O')) { drawLine(50, 100, 558, 100); }
-  else if (arrayIncludes('3O', '4O', '5O')) { drawLine(50, 304, 558, 304); }
-  else if (arrayIncludes('6O', '7O', '8O')) { drawLine(50, 508, 558, 508); }
-  else if (arrayIncludes('0O', '3O', '6O')) { drawLine(100, 50, 100, 558); }
-  else if (arrayIncludes('1O', '4O', '7O')) { drawLine(304, 50, 304, 558); }
-  else if (arrayIncludes('2O', '5O', '8O')) { drawLine(508, 50, 508, 558); }
-  else if (arrayIncludes('0O', '4O', '8O')) { drawLine(100, 100, 520, 520); }
-  else if (arrayIncludes('2O', '4O', '6O')) { drawLine(100, 520, 520, 100); }
-  else if (selectedSquares.length >= 9) {
-    // This function plays the tie game sound.
-    audio('Media/tie.mp3');
-    // This function sets a .3 second timer before the resetGame is called.
-    setTimeout(function () { resetGame(); }, 500);
-  }
-}
-
-// This function checks if an array includes 3 strings. It is used to check for
-// each win condition.
-function arrayIncludes(squareA, squareB, squareC) {
-  const a = selectedSquares.includes(squareA);
-  const b = selectedSquares.includes(squareB);
-  const c = selectedSquares.includes(squareC);
-  if (a === true && b === true && c === true) { return true; }
-}
-
-// This function results in a random square being selected by the computer.
+// Computer picks a random available square
 function computersTurn() {
+  // Guard: if a reset just happened (fresh board), do nothing
+  if (selectedSquares.length === 0) return;
+
   let success = false;
   let pickASquare;
   while (!success) {
@@ -90,14 +63,111 @@ function computersTurn() {
   }
 }
 
-// This function makes our body element temporarily unclickable.
+// Disable clicking for ~1s (used during computer move and win animation)
 function disableClick() {
   body.style.pointerEvents = 'none';
   setTimeout(function () { body.style.pointerEvents = 'auto'; }, 1000);
 }
 
-// This function takes a string parameter of the path you set earlier for placement sound.
+// Play an audio file from the given path
 function audio(audioURL) {
-  let audio = new Audio(audioURL);
-  audio.play();
+  let snd = new Audio(audioURL);
+  snd.play();
+}
+
+// Check all X and O win conditions. If matched, draw the win line.
+// If all 9 picked and no winner, it’s a tie.
+function checkWinConditions() {
+  if (arrayIncludes('0X', '1X', '2X')) { drawLine(50, 100, 558, 100); }
+  else if (arrayIncludes('3X', '4X', '5X')) { drawLine(50, 304, 558, 304); }
+  else if (arrayIncludes('6X', '7X', '8X')) { drawLine(50, 508, 558, 508); }
+  else if (arrayIncludes('0X', '3X', '6X')) { drawLine(100, 50, 100, 558); }
+  else if (arrayIncludes('1X', '4X', '7X')) { drawLine(304, 50, 304, 558); }
+  else if (arrayIncludes('2X', '5X', '8X')) { drawLine(508, 50, 508, 558); }
+  else if (arrayIncludes('0X', '4X', '8X')) { drawLine(100, 100, 520, 520); }
+  else if (arrayIncludes('2X', '4X', '6X')) { drawLine(100, 520, 520, 100); }
+
+  else if (arrayIncludes('0O', '1O', '2O')) { drawLine(50, 100, 558, 100); }
+  else if (arrayIncludes('3O', '4O', '5O')) { drawLine(50, 304, 558, 304); }
+  else if (arrayIncludes('6O', '7O', '8O')) { drawLine(50, 508, 558, 508); }
+  else if (arrayIncludes('0O', '3O', '6O')) { drawLine(100, 50, 100, 558); }
+  else if (arrayIncludes('1O', '4O', '7O')) { drawLine(304, 50, 304, 558); }
+  else if (arrayIncludes('2O', '5O', '8O')) { drawLine(508, 50, 508, 558); }
+  else if (arrayIncludes('0O', '4O', '8O')) { drawLine(100, 100, 520, 520); }
+  else if (arrayIncludes('2O', '4O', '6O')) { drawLine(100, 520, 520, 100); }
+
+  else if (selectedSquares.length >= 9) {
+    audio('Media/tie.mp3');
+    setTimeout(function () { resetGame(); }, 500);
+  }
+}
+
+// Helper for win checks
+function arrayIncludes(a, b, c) {
+  const A = selectedSquares.includes(a);
+  const B = selectedSquares.includes(b);
+  const C = selectedSquares.includes(c);
+  return (A === true && B === true && C === true);
+}
+
+// Animate a green win line on the canvas
+function drawLine(coordX1, coordY1, coordX2, coordY2) {
+  const canvas = document.getElementById('win-lines');
+  const c = canvas.getContext('2d');
+
+  let x1 = coordX1, y1 = coordY1;
+  let x2 = coordX2, y2 = coordY2;
+  let x = x1, y = y1;
+
+  function animateLineDrawing() {
+    const animationLoop = requestAnimationFrame(animateLineDrawing);
+    c.clearRect(0, 0, 608, 608);
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x, y);
+    c.lineWidth = 10;
+    c.strokeStyle = 'rgba(70, 255, 33, .8)';
+    c.stroke();
+
+    if (x1 <= x2 && y1 <= y2) {
+      if (x < x2) { x += 10; }
+      if (y < y2) { y += 10; }
+      if (x >= x2 && y >= y2) { cancelAnimationFrame(animationLoop); }
+    }
+    if (x1 <= x2 && y1 >= y2) {
+      if (x < x2) { x += 10; }
+      if (y > y2) { y -= 10; }
+      if (x >= x2 && y <= y2) { cancelAnimationFrame(animationLoop); }
+    }
+  }
+
+  // Stop any pending computer move before resetting the game
+  if (computerTimeoutId !== null) {
+    clearTimeout(computerTimeoutId); // cancel scheduled setTimeout
+    computerTimeoutId = null;
+  }
+
+  disableClick();
+  audio('Media/winGame.mp3');
+  animateLineDrawing();
+  setTimeout(function () { clear(); resetGame(); }, 1000);
+}
+
+// Clear the canvas after the win animation
+function clear() {
+  const canvas = document.getElementById('win-lines');
+  const c = canvas.getContext('2d');
+  const animationLoop = requestAnimationFrame(clear);
+  c.clearRect(0, 0, 608, 608);
+  cancelAnimationFrame(animationLoop);
+}
+
+// Simple reset so your game can continue after a win/tie.
+function resetGame() {
+  for (let i = 0; i < 9; i++) {
+    const cell = document.getElementById(String(i));
+    cell.style.backgroundImage = '';
+  }
+  selectedSquares = [];
+  activePlayer = 'X';
 }

@@ -14,11 +14,13 @@ table {
 
 td {
   cursor: pointer;
-  border: 4px solid teal; /* Example: changed grid line color */
+  border: 4px solid rgba(38, 43, 125, 0.8);
   padding: 0;
   width: 200px;
   height: 200px;
-  filter: contrast(3);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
 }
 
 canvas {
