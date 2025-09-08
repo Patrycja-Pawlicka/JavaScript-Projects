@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON.parse() Demo</title>
+</head>
+<body>
+
+  <h2>Check the console for the parsed object output</h2>
+
+  <script>
+    // This is a JSON string like you'd receive from a server
+    const jsonString = '{"name":"Patrycja","course":"JavaScript","completed":true,"score":98}';
+
+    // This turns the JSON string back into a JavaScript object
+    const parsedObject = JSON.parse(jsonString);
+
+    // This logs the parsed object to the console
+    console.log("Parsed JavaScript object:", parsedObject);
+
+    // Optional: Access a specific property
+    console.log("Student name:", parsedObject.name);
+  </script>
+
+</body>
+</html>

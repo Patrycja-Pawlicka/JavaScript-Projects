@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ondblclick() Event Handler</title>
+</head>
+<body>
+
+  <h2>Double Click Event Example</h2>
+
+  <!-- Paragraph with ondblclick event -->
+  <p ondblclick="changeText()" id="myParagraph">
+    Double-click this paragraph to change its content!
+  </p>
+
+  <script>
+    // Function triggered on double-click
+    function changeText() {
+      const para = document.getElementById("myParagraph");
+      para.textContent = "You double-clicked me! 🎉";
+    }
+  </script>
+
+</body>
+</html>

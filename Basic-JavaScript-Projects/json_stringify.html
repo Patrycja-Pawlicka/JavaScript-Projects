@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON.stringify() Demo</title>
+</head>
+<body>
+
+  <h2>Check the console for the JSON output</h2>
+
+  <script>
+    // This creates a JavaScript object with some info
+    const student = {
+      name: "Patrycja",
+      course: "JavaScript",
+      completed: true,
+      score: 98
+    };
+
+    // This converts the object into a JSON string
+    const jsonString = JSON.stringify(student);
+
+    // This prints the JSON string to the console
+    console.log("Converted JSON string:", jsonString);
+  </script>
+
+</body>
+</html>
