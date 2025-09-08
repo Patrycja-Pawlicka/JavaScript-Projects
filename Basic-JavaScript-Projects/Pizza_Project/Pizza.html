@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Pizza App</title>
+  <!-- Logic -->
+  <script src="Pizza_JavaScript/Pizza.js" defer></script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="Pizza_CSS/Pizza.css" />
+</head>
+<body>
+  <!-- Main panel -->
+  <div id="menuBG">
+    <h1>Pizza App</h1>
+
+    <!-- Click to build the receipt -->
+    <input id="btnOrder" type="button" value="Place Order" onclick="getReceipt()" />
+
+    <!-- Options -->
+    <form id="frmMenu">
+      <div class="options-row">
+
+        <!-- Sizes -->
+        <div class="col">
+          <h3>Size:</h3>
+          <label>
+            <input class="size" type="radio" name="Size" value="Small Pizza" />
+            Small Pizza
+          </label><br />
+
+          <label>
+            <input class="size" type="radio" name="Size" value="Medium Pizza" />
+            Medium Pizza
+          </label><br />
+
+          <label>
+            <input class="size" type="radio" name="Size" value="Large Pizza" />
+            Large Pizza
+          </label><br />
+
+          <label>
+            <input class="size" type="radio" name="Size" value="Extra Large Pizza" />
+            Extra Large Pizza
+          </label><br />
+        </div>
+
+        <!-- Meats -->
+        <div class="col">
+          <h3>Meats:</h3>
+          <label><input class="meat" type="checkbox" value="Pepperoni" /> Pepperoni</label><br />
+          <label><input class="meat" type="checkbox" value="Sausage" /> Sausage</label><br />
+          <label><input class="meat" type="checkbox" value="Canadian Bacon" /> Canadian Bacon</label><br />
+          <label><input class="meat" type="checkbox" value="Ground Beef" /> Ground Beef</label><br />
+          <label><input class="meat" type="checkbox" value="Anchovy" /> Anchovy</label><br />
+          <label><input class="meat" type="checkbox" value="Chicken" /> Chicken</label><br />
+          <label><input class="meat" type="checkbox" value="Salami" /> Salami</label><br />
+        </div>
+
+        <!-- Vegetables -->
+        <div class="col">
+          <h3>Vegetables:</h3>
+          <label><input class="veg" type="checkbox" value="Onions" /> Onions</label><br />
+          <label><input class="veg" type="checkbox" value="Mushrooms" /> Mushrooms</label><br />
+          <label><input class="veg" type="checkbox" value="Green Peppers" /> Green Peppers</label><br />
+          <label><input class="veg" type="checkbox" value="Black Olives" /> Black Olives</label><br />
+          <label><input class="veg" type="checkbox" value="Spinach" /> Spinach</label><br />
+          <label><input class="veg" type="checkbox" value="Tomatoes" /> Tomatoes</label><br />
+          <label><input class="veg" type="checkbox" value="Jalapeños" /> Jalapeños</label><br />
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <!-- Receipt appears here after clicking Place Order -->
+  <div id="receiptPanel">
+    <div class="receipt-head">
+      <h2>You Ordered:</h2>
+      <div id="receiptTotal">Total: £0.00</div>
+    </div>
+    <pre id="receiptLines"></pre>
+  </div>
+</body>
+</html>

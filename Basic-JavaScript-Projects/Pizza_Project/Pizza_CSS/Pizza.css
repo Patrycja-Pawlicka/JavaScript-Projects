@@ -1,0 +1,85 @@
+/* Base */
+body {
+  background-color: #e8f5e9;
+  font-family: Arial, sans-serif;
+  color: #1b5e20;
+  margin: 0;
+  padding: 0 12px 40px;
+}
+
+/* Headings */
+h1 {
+  color: #2e7d32;
+  text-align: center;
+  margin: 0 0 10px;
+}
+h2 {
+  margin: 0;
+  color: #2e7d32;
+}
+
+/* Menu panel */
+#menuBG {
+  width: 680px;
+  margin: 24px auto 18px;
+  padding: 18px 22px;
+  background-color: #dff3e2;
+  border: 1px solid #a5d6a7;
+  border-radius: 8px;
+}
+
+/* Button */
+#btnOrder {
+  display: block;
+  margin: 12px auto 18px;
+  width: 140px;
+  height: 40px;
+  background-color: #a5d6a7;
+  border: 2px solid #388e3c;
+  color: #1b5e20;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+#btnOrder:hover { background-color: #81c784; }
+
+/* Options layout */
+.options-row {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.col { flex: 1 1 0; min-width: 200px; }
+.col h3 { margin: 0 0 8px; color: #388e3c; font-weight: 700; }
+
+/* Inputs/labels */
+#frmMenu label { margin-left: 6px; font-size: 14px; }
+#frmMenu input[type="checkbox"],
+#frmMenu input[type="radio"] { transform: translateY(1px); }
+
+/* Receipt block below the menu */
+#receiptPanel {
+  width: 680px;
+  margin: 0 auto;
+  padding: 16px 22px 22px;
+  background: #f2faf3;
+  border: 1px solid #a5d6a7;
+  border-radius: 8px;
+}
+.receipt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid #a5d6a7;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+#receiptTotal { color: #1b5e20; }
+#receiptLines {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  white-space: pre-wrap; /* wrap long lines in <pre> */
+}
