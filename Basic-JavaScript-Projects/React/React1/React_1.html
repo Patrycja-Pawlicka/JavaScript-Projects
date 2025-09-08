@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>React File Assignment - Counter</title>
+
+  <!-- React 15 (createClass exists here) -->
+  <script src="https://unpkg.com/react@15.6.2/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15.6.2/dist/react-dom.min.js"></script>
+
+</head>
+<body>
+
+  <!-- React will render into this div -->
+  <div id="My_React_Code"></div>
+
+  <script>
+    // Component that shows how many seconds have passed
+    var Counter = React.createClass({
+      render: function () {
+        // time_Passed is in tenths of a second (rounded)
+        var time_Passed = Math.round(this.props.time_Passed / 100);
+
+        // Build seconds with one decimal (adds .0 when remainder is 0)
+        var seconds_Passed = (time_Passed / 10) + (time_Passed % 10 ? '' : '.0');
+
+        // Message text
+        var text = 'My React code started running ' + seconds_Passed + ' seconds ago!';
+
+        // Return a simple <p> with the message (no JSX)
+        return React.DOM.p(null, text);
+      }
+    });
+
+    // Factory to create Counter elements
+    var counter_Factory = React.createFactory(Counter);
+
+    // Start time when the script loads
+    var start_Counting = new Date().getTime();
+
+    // Re-render every 50ms with updated elapsed time
+    setInterval(function () {
+      ReactDOM.render(
+        counter_Factory({ time_Passed: (new Date().getTime() - start_Counting) }),
+        document.getElementById('My_React_Code')
+      );
+    }, 50);
+  </script>
+
+</body>
+</html>

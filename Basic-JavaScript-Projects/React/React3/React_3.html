@@ -1,0 +1,36 @@
+<!-- React_3.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSX Assignment</title>
+
+  <!-- React and ReactDOM (from CDN) -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel is needed for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+  <!-- This is where JSX will show -->
+  <div id="JSX"></div>
+
+  <!-- React JSX component -->
+  <script type="text/babel">
+    // Create a simple class component
+    class Greeting extends React.Component {
+      render() {
+        // What the user will see
+        return <h1>Hello, World!</h1>;
+      }
+    }
+
+    // Render the component into the page
+    ReactDOM.render(<Greeting />, document.getElementById('JSX'));
+  </script>
+
+</body>
+</html>
